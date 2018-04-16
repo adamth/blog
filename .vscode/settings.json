@@ -1,0 +1,5 @@
+{
+	"python.pythonPath": "/Users/Adam/Documents/Projects/Django/blog/myvenv/bin",
+	"python.linting.enabled": true,
+	"git.ignoreLimitWarning": true
+}
