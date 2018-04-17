@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^signin/', views.sign_in, name='sign_in'),
     url(r'^signout/', views.sign_out, name='sign_out'),
+    url(r'^post/(?P<pk>\d+)/like/$', views.post_like, name='post_like'),
+    url(r'^post/(?P<pk>\d+)/comment/$', views.post_comment, name='post_comment'),
 ]
