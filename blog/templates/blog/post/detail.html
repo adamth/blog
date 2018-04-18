@@ -1,29 +1,44 @@
-{% extends 'blog/base.html' %} {% block content %}
-<div class="post">
-    {% if post.published_date %}
-    <div class="date">
-        {{ post.published_date }}
+{% extends 'blog/base.html' %} {% load static %} {% block content %}
+<div class="banner" style="background-image: url({{ post.image_url }})"></div>
+<div class="article-block">
+    <div class="head">
+        <div class="date">
+            <div class="date-num">
+                25
+            </div>
+            <div class="date-month">
+                Mar
+            </div>
+        </div>
+        <div class="article-heading">
+            <div class="title">
+                {{ post.title }}
+            </div>
+            <div class="subtitle">
+                {{ post.subtitle }}
+            </div>
+        </div>
     </div>
-    {% endif %} {% if user.is_authenticated and post.author.id == user.id %}
-    <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
-        <span class="glyphicon glyphicon-pencil"></span>
-    </a>
-    {% endif %}
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.text|linebreaksbr }}</p>
-    <p>Likes: {{ post.likes }}</p>
-    {% for like in post.like_set.all %}
-    <p>{{like.author}}</p>
-    {% endfor %} {% if liked %}
-    <p>Thanks!</p>
-    {% else %}
-    <a href="{% url 'post_like' pk=post.pk %}">Like</a>
-    {% endif %}
-    <form action="{% url 'post_comment' pk=post.pk %}" method="POST" class="comment-form">{% csrf_token %} {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Comment</button>
-    </form>
-    {% for comment in post.comment_set.all %}
-    <p>{{comment.author}} said {{comment}}</p>
-    {% endfor %}
+    <div class="article-body">
+        {{ post.text }}
+    </div>
+    <div class="article-end">
+        <img src="{% static 'img/article-end.svg' %}" alt="end">
+    </div>
+    <div class="post-actions">
+        <div class="like-button post-action">
+            {% if liked %}
+            <img src="{% static 'img/icon-heart-red-full.svg' %}" alt="like"> {% else %}
+            <a href="{% url 'post_like' pk=post.pk %}">
+                <img src="{% static 'img/icon-heart-red.svg' %}" alt="like">
+            </a>
+            {% endif %}
+        </div>
+        <div class="comment-button post-action">
+            <a href="#">
+                <img src="{% static 'img/icon-comment-red.svg' %}" alt="comment">
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

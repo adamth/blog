@@ -1,11 +1,39 @@
-{% extends 'blog/base.html' %} {% block content %} {% for post in posts %}
-<div class="post">
-    <div class="date">
-        {{ post.published_date }}
+{% extends 'blog/base.html' %} {% load static %} {% block content %} {% for post in posts %}
+<div class="{% if forloop.first %} hero {% else %} article {% endif %}" style="background-image: url({{ post.image_url }})">
+    <div class="block">
+        <div class="heading">
+            {{ post.title }}
+        </div>
+        <div class="sub-heading">
+            {{ post.subtitle }}
+        </div>
     </div>
-    <h1>
-        <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
-    </h1>
-    <p>{{ post.text|linebreaksbr }}</p>
+    <div class="block">
+        <div class="action">
+            <a href="{% url 'post_detail' pk=post.pk %}" class="btn read">Read</a>
+        </div>
+        <div class="meta">
+            <div class="publish meta-block">
+                <img src="{% static 'img/icon-cal.svg' %}" alt="date">
+                <div class="pub-date">
+                    {{ post.published_date }}
+                </div>
+            </div>
+            <div class="container">
+                <div class="like meta-block">
+                    <img src="{% static 'img/icon-heart.svg' %}" alt="likes">
+                    <div class="likes">
+                        {{ post.likes }}
+                    </div>
+                </div>
+                <div class="comment meta-block">
+                    <img src="{% static 'img/icon-comment.svg' %}" alt="comments">
+                    <div class="comments">
+                        {{ post.comments }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endfor %} {% endblock %}
