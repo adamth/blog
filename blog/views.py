@@ -109,3 +109,7 @@ def post_comment(request, pk):
     else:
         return redirect('sign_in')
     return redirect('/post/{}'.format(pk))
+
+
+def test(request):
+    return render(request, 'portfolio/index.html')

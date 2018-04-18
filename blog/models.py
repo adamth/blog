@@ -5,6 +5,12 @@ from django.utils import timezone
 class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+    image_url = models.URLField(
+        blank=True
+    )
+    subtitle = models.TextField(
+        blank=True
+    )
     text = models.TextField()
     created_date = models.DateTimeField(
         default=timezone.now
@@ -20,6 +26,10 @@ class Post(models.Model):
     @property
     def likes(self):
         return self.like_set.all().count()
+
+    @property
+    def comments(self):
+        return self.comment_set.all().count()
 
     def liked(self, user_id):
         '''Check to see if the current user has already liked the post'''
